@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    background-color: #151516;
+}
+
+.wrapper {
+    float: right;
+}
+
+h1 {
+    font-family: 'Red Rose', cursive;
+    font-weight: 800;
+    font-size: 4rem;
+    padding-right: 4rem;
+    padding-top: 4rem;
+    color: #FE3CFF;
+}
+
+.btn {
+    font-family: 'Staatliches', cursive;
+}
+
