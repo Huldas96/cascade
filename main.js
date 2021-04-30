@@ -27,11 +27,11 @@ document.body.appendChild(renderer.domElement);
 
 // Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.enableZoom = false;
+controls.enablePan = true;
+controls.enableZoom = true;
 controls.minPolarAngle = d2r(98); // I Set the same value for min and max polar angle to disable vertical orbit control
 controls.maxPolarAngle = d2r(98); // It can be set between 0 and PI
-controls.target.y = 1.7; // moving the focus point up
+controls.target.y = 1; // moving the focus point up
 
 // Camera settings
 camera.position.z = 5;
@@ -62,57 +62,77 @@ window.addEventListener("resize", () => {
 });
 
 // Grid Helper
-//const gridHelper = new THREE.GridHelper( 10, 10 );
-//scene.add( gridHelper );
+const gridHelper = new THREE.GridHelper( 10, 10 );
+scene.add( gridHelper );
 
 // Load the Model
 var model;
 const loader = new GLTFLoader();
 loader.load("./woman/model.glb", function (gltf) {
-  gltf.scene.scale.set(0.1, 0.1, 0.1);
-  gltf.scene.position.set(0, -0.5, 0);
-  gltf.scene.rotation.y = Math.PI; // Turn the model towards the camera
+  gltf.scene.scale.set(0.08, 0.08, 0.08);
+  gltf.scene.position.set(0, 0, 0);
+  gltf.scene.rotation.y = 5;
   model = gltf.scene;
 
   model.traverse((child) => {
-    // console.log(child);
+    //console.log(child);
 
-    // Deal with left shoulder bone
-    if (child.name === "HumanFemale_bone_ShoulderL") {
+    if (child.name === "HumanFemale_bone_Head") {
       console.log(child);
-      child.scale.set(2, 2, 2);
+      let size = 0.9
+      child.scale.set(size, size, size);
     }
   });
 
   scene.add(model);
 });
 
-// loader.load(
-//   //   "./Model/scene.gltf",
-//   "./woman/model.glb",
-//   function (gltf) {
-//     gltf.scene.scale.set(0.07, 0.07, 0.07);
-//     gltf.scene.position.set(0, -0.01, 0);
-//     gltf.scene.rotation.y = Math.PI; // Turn the model towards the camera
-//     model = gltf.scene;
-//     console.log(model);
-//     scene.add(model);
-//   },
-//   undefined,
-//   function (error) {
-//     console.error(error);
-//   }
-// );
+// MODEL LOCATION THINGS:
+
+// HumanFemale_bone_Head = Head
+// HumanFemale_bone_16 = Body above waist
+// HumanFemale_bone_2 = Body below waist
+
+// BREASTS
+// HumanFemale_bone_23 = Left Breast
+// HumanFemale_bone_26 = Right Breast
+
+// RIGHT ARM
+// HumanFemale_bone_43 = Right Arm Elbow
+// HumanFemale_bone_45 = Right upper Arm 
+// HumanFemale_bone_51 = Right lower Arm
+// HumanFemale_bone_53 = Right Hand 
+
+// LEFT ARM
+// HumanFemale_bone_40 = Left Arm Elbow
+// HumanFemale_bone_41 = Left upper Arm
+// HumanFemale_bone_49 = Left lower Arm
+// HumanFemale_bone_48 = Left Hand
+
+// RIGHT LEG
+// HumanFemale_bone_6 = Right Leg
+// HumanFemale_bone_12 = Right Thigh
+// HumanFemale_bone_38 = Right Foot
+// HumanFemale_bone_27 = Right Foot and ankle
+
+// LEFT LEG
+// HumanFemale_bone_8 = Left Leg
+// HumanFemale_bone_15 = Left Thigh
+// HumanFemale_bone_39 = Left Foot
+// HumanFemale_bone_20 = Left Foot and ankle
+
+//
+
 
 // Plane (ground)
-const geometry = new THREE.PlaneGeometry(5, 20, 32);
-const material = new THREE.MeshBasicMaterial({
-  color: 0x151516,
-  side: THREE.DoubleSide,
-});
-const plane = new THREE.Mesh(geometry, material);
-plane.position.y = 0.005;
-plane.rotation.x = d2r(90); // Turning the plane horizontal
+//const geometry = new THREE.PlaneGeometry(5, 20, 32);
+//const material = new THREE.MeshBasicMaterial({
+//  color: 0x151516,
+//  side: THREE.DoubleSide,
+//});
+//const plane = new THREE.Mesh(geometry, material);
+//plane.position.y = 0.005;
+//plane.rotation.x = d2r(90); // Turning the plane horizontal
 // scene.add( plane );
 
 // Animation
